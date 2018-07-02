@@ -1,0 +1,22 @@
+{
+    "name": "guitar-chord-sequence",
+    "version": "1.0.0",
+    "desctiption": "A javascript library for interacting with guitar chord sequences, built for the capo.guru project",
+    "author": "John Greenwood <john@greenwoodlomax.com> (http://greenwoodlomax.com)",
+    "license": "GPL",
+    "homepage": "https://github.com/jgjr/guitar-chord-sequence",
+    "keywords": [
+        "music", "guitar", "chords", "library"
+    ],
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jgjr/guitar-chord-sequence.git"
+    },
+    "devDependencies": {
+        "jest": "^23.2.0"
+    }
+}
