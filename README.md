@@ -1,6 +1,6 @@
 # guitar-chord-sequence
 
-This is a very small Javascript library for working with chord sequences on the guitar. It was built exculsively for the [capo.guru](http://capo.guru) project, and therefore might not be that suitable for other projects. Nevertheless, here is an overview:
+This is a very small Javascript library for working with chord sequences on the guitar. It was built exclusively for the [capo.guru](http://capo.guru) project, and therefore might not be that suitable for other projects. Nevertheless, here is an overview:
 
 ## Installation
 
