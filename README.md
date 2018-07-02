@@ -15,9 +15,9 @@ The module's public interface provides two classes: Sequence and SequenceError. 
 
 The Sequence instance has several available methods:
 
-* `sequence.addChord({root: 'A', type: 'maj'})` will add a chord to the end of the sequence
-* `sequence.removeChord({root: 'A', type: 'maj'})` will remove all instances of that chord from the sequence
-* `sequence.removeChordByIndex(1)` will remove the chord at the chosen index of the sequence
+* `sequence.addChord({root: 'A', type: 'maj'})` will return a new Sequence object with a chord added to the end of the sequence
+* `sequence.removeChord({root: 'A', type: 'maj'})` will return a new Sequence object with all instances of that chord removed from the sequence
+* `sequence.removeChordByIndex(1)` will return a new Sequence object with the chord at the chosen index removed of the sequence
 * `sequence.transpose(5)` will return a new Sequence object, with a transposition applied of the specified number of semitones (any positive or negative integer is valid)
 * `sequence.containsChord({root: 'A', type: 'maj'})` will return true/false depending on whether the specified chord can be found in the sequence
 * `sequence.containsEveryChord([{root: 'A', type: 'maj'}, {root: 'F#', type: 'min'}])` will return true if every chord in the specified sequence can be found within the initial sequence, and false if not
