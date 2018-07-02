@@ -95,7 +95,7 @@ class Sequence {
 
     addChord(chordToAdd) {
         try {
-            this.chords.push(formatInputChord(chordToAdd));
+            return new Sequence([...this.chords, formatInputChord(chordToAdd)]);
         } catch (error) {
             throw new SequenceError(error);
         }
@@ -103,16 +103,15 @@ class Sequence {
 
     removeChord(chordToRemove) {
         try {
-            chordToRemove = formatInputChord(chordToRemove);
+            return new Sequence(this.chords.filter(chord => !chordsAreEqual(chord, formatInputChord(chordToRemove))));
         } catch (error) {
             throw new SequenceError(error);
         }
-        this.chords = this.chords.filter(chord => !chordsAreEqual(chord, chordToRemove));
     }
 
     removeChordByIndex(chordIndex) {
         if (chordIndex < 0 || chordIndex >= this.chords.length) throw new SequenceError('Invalid index');
-        this.chords.splice(chordIndex, 1);
+        return new Sequence(this.chords.filter((chord, index) => index != chordIndex));
     }
 
     transpose(semitones) {
