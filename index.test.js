@@ -170,3 +170,5 @@ test('Find keys no results', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'A#', type: 'min'}]);
     expect(seq.findKeys()).toEqual([]);
 });
+
+

@@ -25,6 +25,14 @@ The Sequence instance has several available methods:
 * `sequence.findOpenPositions()` will return an array of frets on which the position could be played using open chords if a capo were placed there. Also takes an optional argument of 'open' chords
 * `sequence.findKeys()` will return an array of possible keys to which the chord sequence could belong
 
+The sequence can also be iterated like an array and will return the chord names as strings:
+
+```
+for (let chord of sequence) {
+    console.log(chord);
+}
+```
+
 ## Tests
 
 Tests can be run using the `npm test` or `yarn test` commands. 

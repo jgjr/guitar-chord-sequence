@@ -146,6 +146,7 @@ class Sequence {
                 openSequences.push({fret: i, sequence: transposedSequence});
         }
         return openSequences;
+
     }
 
     findKeys() {
@@ -160,6 +161,23 @@ class Sequence {
     }
 
 }
+
+class SequenceIterator {
+    constructor(sequence) {
+        this.chordIndex = 0;
+        this.sequence = sequence;
+    }
+    next() {
+        if (this.chordIndex == this.sequence.chords.length) return {done: true};
+        let value = chordToString(this.sequence.chords[this.chordIndex]);
+        this.chordIndex++;
+        return {value, done: false};
+    }
+}
+
+Sequence.prototype[Symbol.iterator] = function() {
+  return new SequenceIterator(this);
+};
 
 module.exports = {
     SequenceError,
