@@ -67,14 +67,14 @@ let noteToString = function(note) {
     if (typeof notes[note] == 'string') {
         return notes[note];
     } else {
-        return notes[note][0];
+        return notes[note].join('/');
     }
 }
 
 let chordToString = function(chord) {
     let string = noteToString(chord.num);
     if (chord.type != 'maj') 
-        string += chord.type;
+        string += ' ' + chord.type;
     return string;
 };
 

@@ -20,7 +20,7 @@ test('Init bad sequence chord root', () => {
 
 test('To string', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}, {root: 'E', type: '7'}]);
-    expect(String(seq)).toEqual('A, Bmin, E7');
+    expect(String(seq)).toEqual('A, B min, E 7');
 });
 
 test('Full chords', () => {
@@ -182,12 +182,13 @@ test('Find keys empty sequence', () => {
 });
 
 test('Iterating', () => {
-    let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}]);
+    let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}, {root: 'C#', type: 'min'}]);
     let strings = [];
     for (let chord of seq) {
         strings.push(chord);
     }
     expect(strings[0]).toBe('A');
-    expect(strings[1]).toBe('Bmin');
+    expect(strings[1]).toBe('B min');
+    expect(strings[2]).toBe('C#/Db min');
 });
 
