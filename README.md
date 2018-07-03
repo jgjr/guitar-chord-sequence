@@ -15,6 +15,7 @@ The module's public interface provides two classes: Sequence and SequenceError. 
 
 The Sequence instance has several available methods:
 
+* `sequence.fullChords()` will return an array of objects containing index, num, root, type and string properties to represent each chord
 * `sequence.addChord({root: 'A', type: 'maj'})` will return a new Sequence object with a chord added to the end of the sequence
 * `sequence.removeChord({root: 'A', type: 'maj'})` will return a new Sequence object with all instances of that chord removed from the sequence
 * `sequence.removeChordByIndex(1)` will return a new Sequence object with the chord at the chosen index removed of the sequence

@@ -93,6 +93,18 @@ class Sequence {
         return this.chords.map(chord => chordToString(chord)).join(', ');
     }
 
+    fullChords() {
+        return this.chords.map((chord, index) => {
+            return {
+                index: index,
+                num: chord.num, 
+                root: noteToString(chord.num),
+                type: chord.type,
+                string: chordToString(chord)
+            }
+        });
+    }
+
     addChord(chordToAdd) {
         try {
             return new Sequence([...this.chords, formatInputChord(chordToAdd)]);

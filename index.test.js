@@ -23,6 +23,11 @@ test('To string', () => {
     expect(String(seq)).toEqual('A, Bmin, E7');
 });
 
+test('Full chords', () => {
+    let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}]);
+    expect(seq.fullChords()[0]).toEqual({index: 0, num: 0, root: 'A', type: 'maj', string: 'A'});
+});
+
 test('Add chord', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}]);
     let seq2 = seq.addChord({root: 'B', type: 'min'});
