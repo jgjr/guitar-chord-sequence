@@ -151,11 +151,13 @@ class Sequence {
 
     findKeys() {
         let keys = [];
-        let keyOfA = new Sequence(aMajorChords);
-        for (let i = 0; i <= 11; i++) {
-            let newKey = keyOfA.transpose(i);
-            if (newKey.containsEveryChord(this.chords))
-                keys.push({root: noteToString(i), num: i});
+        if (this.chords.length) {
+            let keyOfA = new Sequence(aMajorChords);
+            for (let i = 0; i <= 11; i++) {
+                let newKey = keyOfA.transpose(i);
+                if (newKey.containsEveryChord(this.chords))
+                    keys.push({root: noteToString(i), num: i});
+            }
         }
         return keys;
     }

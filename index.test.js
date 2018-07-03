@@ -171,4 +171,18 @@ test('Find keys no results', () => {
     expect(seq.findKeys()).toEqual([]);
 });
 
+test('Find keys empty sequence', () => {
+    let seq = new Sequence([]);
+    expect(seq.findKeys()).toEqual([]);
+});
+
+test('Iterating', () => {
+    let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}]);
+    let strings = [];
+    for (let chord of seq) {
+        strings.push(chord);
+    }
+    expect(strings[0]).toBe('A');
+    expect(strings[1]).toBe('Bmin');
+});
 
