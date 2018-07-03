@@ -25,7 +25,7 @@ test('To string', () => {
 
 test('Full chords', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}]);
-    expect(seq.fullChords()[0]).toEqual({index: 0, num: 0, root: 'A', type: 'maj', string: 'A'});
+    expect(seq.fullChords()[0]).toEqual({num: 0, root: 'A', type: 'maj', string: 'A'});
 });
 
 test('Add chord', () => {

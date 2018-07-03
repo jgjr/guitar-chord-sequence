@@ -94,9 +94,8 @@ class Sequence {
     }
 
     fullChords() {
-        return this.chords.map((chord, index) => {
+        return this.chords.map(chord => {
             return {
-                index: index,
                 num: chord.num, 
                 root: noteToString(chord.num),
                 type: chord.type,
