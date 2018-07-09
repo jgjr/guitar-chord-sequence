@@ -126,35 +126,45 @@ class Sequence {
     }
 
     transpose(semitones) {
-        if (isNaN(semitones)) throw new SequenceError('Invalid transposition');
-        semitones = parseInt(semitones);
-        return new Sequence(this.chords.map(chord => transposeChord(chord, semitones)));
+        if (this.chords.length) {
+            if (isNaN(semitones)) throw new SequenceError('Invalid transposition');
+            semitones = parseInt(semitones);
+            return new Sequence(this.chords.map(chord => transposeChord(chord, semitones)));
+        }
     }
 
     containsChord(searchChord) {
-        try {
-            searchChord = formatInputChord(searchChord);
-        } catch (error) {
-            throw new SequenceError(error);
+        if (this.chords.length) {
+            try {
+                searchChord = formatInputChord(searchChord);
+            } catch (error) {
+                throw new SequenceError(error);
+            }
+            return this.chords.some(chord => chordsAreEqual(chord, searchChord));
         }
-        return this.chords.some(chord => chordsAreEqual(chord, searchChord));
     }
 
     containsEveryChord(searchSequence) {
-        return searchSequence.every(chord => this.containsChord(chord));
+        if (this.chords.length) {
+            return searchSequence.every(chord => this.containsChord(chord));
+        }
     }
 
     isOpen(openChords = defaultOpenChords) {
-        if (!(openChords instanceof Sequence)) openChords = new Sequence(openChords);
-        return openChords.containsEveryChord(this.chords);
+        if (this.chords.length) {
+            if (!(openChords instanceof Sequence)) openChords = new Sequence(openChords);
+            return openChords.containsEveryChord(this.chords);
+        }
     }
 
     findOpenPositions(openChords = defaultOpenChords) {
         let openSequences = [];
-        for (let i = 0; i <= 11; i++) {
-            let transposedSequence = this.transpose(-i);
-            if (transposedSequence.isOpen(openChords))
-                openSequences.push({fret: i, sequence: transposedSequence});
+        if (this.chords.length) {
+            for (let i = 0; i <= 11; i++) {
+                let transposedSequence = this.transpose(-i);
+                if (transposedSequence.isOpen(openChords))
+                    openSequences.push({fret: i, sequence: transposedSequence});
+            }
         }
         return openSequences;
 
