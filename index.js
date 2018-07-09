@@ -160,7 +160,7 @@ class Sequence {
     findOpenPositions(openChords = defaultOpenChords) {
         let openSequences = [];
         if (this.chords.length) {
-            for (let i = 0; i <= 11; i++) {
+            for (let i = 1; i <= 11; i++) {
                 let transposedSequence = this.transpose(-i);
                 if (transposedSequence.isOpen(openChords))
                     openSequences.push({fret: i, sequence: transposedSequence});
