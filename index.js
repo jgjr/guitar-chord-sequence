@@ -1,3 +1,4 @@
+// The custom error class for the Sequence class.
 class SequenceError extends Error {};
 
 let notes = ['A', ['A#', 'Bb'], 'B', 'C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#', 'Gb'], 'G', ['G#', 'Ab']];
@@ -12,12 +13,14 @@ let defaultOpenChords = [
     {root: 'E', type: 'maj7'}, {root: 'G', type: 'maj'}, {root: 'G', type: '7'}
 ];
 
+// All chords in A major. This is then transposed to find the possible keys of any given sequence. 
 let aMajorChords = [
     {root: 'A', type: 'maj'}, {root: 'A', type: 'maj7'}, {root: 'B', type: 'min'}, {root: 'B', type: 'min7'},
     {root: 'C#', type: 'min'}, {root: 'C#', type: 'min7'}, {root: 'D', type: 'maj'}, {root: 'D', type: 'maj7'},
     {root: 'E', type: 'maj'}, {root: 'E', type: '7'}, {root: 'F#', type: 'min'}, {root: 'F#', type: 'min7'}
 ];
 
+// Converts a note (e.g. C#) to an integer used in the Sequence object.
 let noteLetterToNumber = function(letter) {
     for (let i = 0; i < notes.length; i++) {
         if ((typeof notes[i] == 'string' && letter == notes[i]) ||
@@ -34,6 +37,7 @@ let isChordInputValid = function(chord) {
         (chord.hasOwnProperty('root') || chord.hasOwnProperty('num')));
 };
 
+// Turns the input chord into an object usable by the Sequence object.
 let formatInputChord = function(chord) {
     if (!isChordInputValid(chord)) throw new Error('Incorrect chord format');
     let formattedChord = {};
@@ -49,20 +53,23 @@ let formatInputChord = function(chord) {
 };
 
 let transposeChord = function(chord, semitones) {
+    // Transposing by more than 12 (an octave) is useless.
     let newNum = (chord.num + semitones) % 12;
-    if (newNum < 0) {
+    // We need our chord num to be between 0 and 11 inclusive.
+    if (newNum < 0)
         newNum = newNum + 12;
-    }
     return {
         num: newNum,
         type: chord.type
     }
 };
 
+// Lets us compare chord objects.
 let chordsAreEqual = function(chord1, chord2) {
     return (chord1.num == chord2.num && chord1.type == chord2.type);
 };
 
+// Converts a note num string (e.g. 4 becomes 'C#/Db).
 let noteToString = function(note) {
     if (typeof notes[note] == 'string') {
         return notes[note];
@@ -71,6 +78,7 @@ let noteToString = function(note) {
     }
 }
 
+// Converts the entire chord object to a string.
 let chordToString = function(chord) {
     let string = noteToString(chord.num);
     if (chord.type != 'maj') 
@@ -89,10 +97,12 @@ class Sequence {
         }
     }
 
+    // Return the entire sequence as a string.
     toString() {
         return this.chords.map(chord => chordToString(chord)).join(', ');
     }
 
+    // Returns a version of the chords array with more data (root and string).
     fullChords() {
         return this.chords.map(chord => {
             return {
@@ -112,6 +122,7 @@ class Sequence {
         }
     }
 
+    // Removes all instances of a chord from the sequence, by name.
     removeChord(chordToRemove) {
         try {
             return new Sequence(this.chords.filter(chord => !chordsAreEqual(chord, formatInputChord(chordToRemove))));
@@ -144,12 +155,18 @@ class Sequence {
         }
     }
 
+    // Returns true if the sequence contains every chord in the argument sequence.
     containsEveryChord(searchSequence) {
         if (this.chords.length) {
             return searchSequence.every(chord => this.containsChord(chord));
         }
     }
 
+    /**
+    * Returns true if every chord in the sequence can be played using open chords.
+    * The chords considered to be open can be specified as an optional argument. 
+    * You might consider F and Bminor to be open chords. 
+    */
     isOpen(openChords = defaultOpenChords) {
         if (this.chords.length) {
             if (!(openChords instanceof Sequence)) openChords = new Sequence(openChords);
@@ -157,6 +174,10 @@ class Sequence {
         }
     }
 
+    /** 
+     * Finds every position in which it would be possible to position a capo 
+     * and play the sequence with open chords. 
+     */
     findOpenPositions(openChords = defaultOpenChords) {
         let openSequences = [];
         if (this.chords.length) {
@@ -170,6 +191,7 @@ class Sequence {
 
     }
 
+    // Finds all possible keys to which the sequence could belong.
     findKeys() {
         let keys = [];
         if (this.chords.length) {
@@ -185,6 +207,10 @@ class Sequence {
 
 }
 
+/**
+ * The custom iterator class for the Sequence class. 
+ * Returns a string for each chord in the sequence.
+ */
 class SequenceIterator {
     constructor(sequence) {
         this.chordIndex = 0;
