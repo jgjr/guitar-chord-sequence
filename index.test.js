@@ -1,4 +1,4 @@
-const {Sequence, SequenceError} = require('./index');
+const { Sequence } = require('./dist/index');
 
 test('Init sequence', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}]);
@@ -11,11 +11,11 @@ test('Init sequence different cases', () => {
 });
 
 test('Init bad sequence property names', () => {
-    expect(() => new Sequence([{a: 'A', b: 'maj'}])).toThrow(SequenceError);
+    expect(() => new Sequence([{a: 'A', b: 'maj'}])).toThrow();
 });
 
 test('Init bad sequence chord root', () => {
-    expect(() => new Sequence([{root: 'H', type: 'maj'}])).toThrow(SequenceError);
+    expect(() => new Sequence([{root: 'H', type: 'maj'}])).toThrow();
 });
 
 test('To string', () => {
@@ -37,7 +37,7 @@ test('Add chord', () => {
 
 test('Add chord bad input', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}]);
-    expect(() => seq.addChord({root: 'H', b: 'min'})).toThrow(SequenceError);
+    expect(() => seq.addChord({root: 'H', b: 'min'})).toThrow();
 });
 
 test('Remove chord', () => {
@@ -49,7 +49,7 @@ test('Remove chord', () => {
 
 test('Remove chord bad input', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}]);
-    expect(() => seq.addChord({root: 'H', b: 'min'})).toThrow(SequenceError);
+    expect(() => seq.addChord({root: 'H', b: 'min'})).toThrow();
 });
 
 test('Remove chord by index', () => {
@@ -61,7 +61,7 @@ test('Remove chord by index', () => {
 
 test('Remove chord by index bad input', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}, {root: 'C#', type: 'min'}]);
-    expect(() => seq.removeChordByIndex(5)).toThrow(SequenceError);
+    expect(() => seq.removeChordByIndex(5)).toThrow();
 });
 
 test('Transpose up', () => {
@@ -90,7 +90,7 @@ test('Transpose down > octave', () => {
 
 test('Transpose bad interval', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}]);
-    expect(() => seq.transpose('asdf')).toThrow(SequenceError);
+    expect(() => seq.transpose('asdf')).toThrow();
 });
 
 test('Contains chord true', () => {
@@ -105,7 +105,7 @@ test('Contains chord false', () => {
 
 test('Contains chord bad chord', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}, {root: 'B', type: 'min'}]);
-    expect(() => seq.containsChord({root: 'H', type: 'min'})).toThrow(SequenceError);
+    expect(() => seq.containsChord({root: 'H', type: 'min'})).toThrow();
 });
 
 test('Contains every chord true', () => {
