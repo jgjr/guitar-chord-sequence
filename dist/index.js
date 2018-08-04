@@ -294,5 +294,6 @@ Sequence.prototype[Symbol.iterator] = function () {
 
 module.exports = {
     SequenceError: SequenceError,
-    Sequence: Sequence
+    Sequence: Sequence,
+    defaultOpenChords: defaultOpenChords
 };

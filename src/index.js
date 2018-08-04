@@ -1,11 +1,11 @@
 // The custom error class for the Sequence class.
 class SequenceError extends Error {};
 
-let notes = ['A', ['A#', 'Bb'], 'B', 'C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#', 'Gb'], 'G', ['G#', 'Ab']];
+const notes = ['A', ['A#', 'Bb'], 'B', 'C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#', 'Gb'], 'G', ['G#', 'Ab']];
 
-let types = ['maj', 'min', '7', 'min7', 'maj7'];
+const types = ['maj', 'min', '7', 'min7', 'maj7'];
 
-let defaultOpenChords = [
+const defaultOpenChords = [
     {root: 'A', type: 'maj'}, {root: 'A', type: 'min'}, {root: 'A', type: '7'}, {root: 'A', type: 'min7'},
     {root: 'A', type: 'maj7'}, {root: 'C', type: 'maj'}, {root: 'C', type: '7'}, {root: 'D', type: 'maj'}, 
     {root: 'D', type: 'min'}, {root: 'D', type: '7'}, {root: 'D', type: 'min7'}, {root: 'D', type: 'maj7'}, 
@@ -14,14 +14,14 @@ let defaultOpenChords = [
 ];
 
 // All chords in A major. This is then transposed to find the possible keys of any given sequence. 
-let aMajorChords = [
+const aMajorChords = [
     {root: 'A', type: 'maj'}, {root: 'A', type: 'maj7'}, {root: 'B', type: 'min'}, {root: 'B', type: 'min7'},
     {root: 'C#', type: 'min'}, {root: 'C#', type: 'min7'}, {root: 'D', type: 'maj'}, {root: 'D', type: 'maj7'},
     {root: 'E', type: 'maj'}, {root: 'E', type: '7'}, {root: 'F#', type: 'min'}, {root: 'F#', type: 'min7'}
 ];
 
 // Converts a note (e.g. C#) to an integer used in the Sequence object.
-let noteLetterToNumber = function(letter) {
+const noteLetterToNumber = function(letter) {
     for (let i = 0; i < notes.length; i++) {
         if ((typeof notes[i] == 'string' && letter == notes[i]) ||
             (typeof notes[i] == 'object' && notes[i].indexOf(letter) != -1)) {
@@ -31,14 +31,14 @@ let noteLetterToNumber = function(letter) {
     throw new Error('Invalid chord root');
 };
 
-let isChordInputValid = function(chord) {
+const isChordInputValid = function(chord) {
     return (
         chord.hasOwnProperty('type') && 
         (chord.hasOwnProperty('root') || chord.hasOwnProperty('num')));
 };
 
 // Turns the input chord into an object usable by the Sequence object.
-let formatInputChord = function(chord) {
+const formatInputChord = function(chord) {
     if (!isChordInputValid(chord)) throw new Error('Incorrect chord format');
     let formattedChord = {};
     if (chord.hasOwnProperty('num')) {
@@ -52,7 +52,7 @@ let formatInputChord = function(chord) {
     return formattedChord;
 };
 
-let transposeChord = function(chord, semitones) {
+const transposeChord = function(chord, semitones) {
     // Transposing by more than 12 (an octave) is useless.
     let newNum = (chord.num + semitones) % 12;
     // We need our chord num to be between 0 and 11 inclusive.
@@ -65,12 +65,12 @@ let transposeChord = function(chord, semitones) {
 };
 
 // Lets us compare chord objects.
-let chordsAreEqual = function(chord1, chord2) {
+const chordsAreEqual = function(chord1, chord2) {
     return (chord1.num == chord2.num && chord1.type == chord2.type);
 };
 
 // Converts a note num string (e.g. 4 becomes 'C#/Db).
-let noteToString = function(note) {
+const noteToString = function(note) {
     if (typeof notes[note] == 'string') {
         return notes[note];
     } else {
@@ -79,7 +79,7 @@ let noteToString = function(note) {
 }
 
 // Converts the entire chord object to a string.
-let chordToString = function(chord) {
+const chordToString = function(chord) {
     let string = noteToString(chord.num);
     if (chord.type != 'maj') 
         string += ' ' + chord.type;
@@ -231,4 +231,5 @@ Sequence.prototype[Symbol.iterator] = function() {
 module.exports = {
     SequenceError,
     Sequence,
+    defaultOpenChords,
 };
