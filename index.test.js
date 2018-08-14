@@ -6,7 +6,7 @@ test('Init sequence', () => {
 });
 
 test('Init sequence different cases', () => {
-    let seq = new Sequence([{root: 'a', type: 'MAJ'}]);
+    let seq = new Sequence([{root: 'A', type: 'MAJ'}]);
     expect(seq.chords).toEqual([{num: 0, type: 'maj'}]);
 });
 
@@ -30,9 +30,9 @@ test('Full chords', () => {
 
 test('Add chord', () => {
     let seq = new Sequence([{root: 'A', type: 'maj'}]);
-    let seq2 = seq.addChord({root: 'B', type: 'min'});
+    let seq2 = seq.addChord({root: 'Bb', type: 'min'});
     expect(seq.chords).toEqual([{num: 0, type: 'maj'}]);
-    expect(seq2.chords).toEqual([{num: 0, type: 'maj'}, {num: 2, type: 'min'}]);
+    expect(seq2.chords).toEqual([{num: 0, type: 'maj'}, {num: 1, type: 'min'}]);
 });
 
 test('Add chord bad input', () => {

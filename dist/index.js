@@ -58,7 +58,7 @@ var formatInputChord = function formatInputChord(chord) {
         if (chord.num < 0 || chord.num > 11) throw new Error('Invalid chord number');
         formattedChord.num = chord.num;
     } else {
-        formattedChord.num = noteLetterToNumber(chord.root.toUpperCase());
+        formattedChord.num = noteLetterToNumber(chord.root);
     }
     if (types.indexOf(chord.type.toLowerCase()) == -1) throw new Error('Invalid chord type');
     formattedChord.type = chord.type.toLowerCase();
@@ -295,5 +295,7 @@ Sequence.prototype[Symbol.iterator] = function () {
 module.exports = {
     SequenceError: SequenceError,
     Sequence: Sequence,
-    defaultOpenChords: defaultOpenChords
+    defaultOpenChords: defaultOpenChords,
+    noteLetterToNumber: noteLetterToNumber,
+    formatInputChord: formatInputChord
 };

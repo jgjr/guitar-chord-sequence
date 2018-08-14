@@ -45,7 +45,7 @@ const formatInputChord = function(chord) {
         if (chord.num < 0 || chord.num > 11) throw new Error('Invalid chord number');
         formattedChord.num = chord.num;
     } else {
-        formattedChord.num = noteLetterToNumber(chord.root.toUpperCase()); 
+        formattedChord.num = noteLetterToNumber(chord.root); 
     }
     if (types.indexOf(chord.type.toLowerCase()) == -1) throw new Error('Invalid chord type');
     formattedChord.type = chord.type.toLowerCase();
@@ -232,4 +232,6 @@ module.exports = {
     SequenceError,
     Sequence,
     defaultOpenChords,
+    noteLetterToNumber,
+    formatInputChord
 };
