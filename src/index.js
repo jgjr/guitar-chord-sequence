@@ -231,7 +231,5 @@ Sequence.prototype[Symbol.iterator] = function() {
 module.exports = {
     SequenceError,
     Sequence,
-    defaultOpenChords,
-    noteLetterToNumber,
-    formatInputChord
+    defaultOpenChords
 };
